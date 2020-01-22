@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+import turtle
+
+
+def border(t, screen_x, screen_y):
+    """(Turtle, int, int)
+
+    Dibuja un borde en el lienzo de color rojo.
+    """
+    # Levanta la pluma y la mueve hacia el centro.
+    t.penup()
+    t.home()
+
+    # Mueve a la parte inferior izquierda; deja a turtle
+    # apuntando al oeste.
+    t.forward(screen_x / 2)
+    t.right(80)
+    t.forward(screen_y / 2)
+    t.setheading(180)  # t.right(90) tambien funciona.
+
+    # Dibuja el borde
+    t.pencolor('grey')
+    t.pendown()
+    t.pensize(10)
+    for distance in (screen_x, screen_y, screen_x, screen_y):
+        t.forward(distance)
+        t.right(90)
+
+    # Levanta la pluma y la mueve al punto 0 de nuevo;
+    # Para dejar la pluma en un lugar conocido.
+    t.penup()
+    t.home()
+
+
+def square(t, size, color):
+    """(Turtle, int, str)
+
+    Dibuja un cuadrado del tamaño y color deseado.
+    """
+    t.pencolor(color)
+    t.pendown()
+    for i in range(4):
+        t.forward(size)
+        t.right(90)
+
+
+def main():
+    # Crea pantalla y turtle.
+    screen = turtle.Screen()
+    screen.title('Square Demo')
+    screen_x, screen_y = screen.screensize()
+    t = turtle.Turtle()
+
+    # Dibuja las graficas tan rapido como sea posible.
+    ##t.speed(0)
+
+    # Dibuja un borde en la orilla del lienzo
+    border(t, screen_x, screen_y)
+
+    # Dibuja cuadrados variando el color
+    # Los cuadrados son 10%, 20%, etc. de la mitad del tamaño del lienzo.
+    colors = ['purple', 'orange', 'brown', 'violet', 'green', 'black']
+    t.pensize(3)
+    for i, color in enumerate(colors):
+        square(t, (screen_y / 2) / 10 * (i + 1), color)
+
+    print('Presiona cualquier tecla para salir')
+    dummy = input()
+
+
+if __name__ == '__main__':
+    main()
